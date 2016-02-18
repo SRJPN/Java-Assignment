@@ -85,4 +85,20 @@ public class MatrixTest {
 
     	assertEquals(-2,matrix1.determinant());
     }
+
+    @Test
+    public void determinant_returns_the_determinant_of_the_given_3x3_matrix(){
+    	int[] a = {1,2,3,4,5,6,7,8,9};
+        Matrix matrix1 = Matrix.createMatrix(3,3,a);
+
+    	assertEquals(0,matrix1.determinant());
+    }
+
+    @Test
+    public void determinant_returns_the_determinant_of_the_given_3x3_matrix_extra_test(){
+    	int[] a = {6,1,1,4,-2,5,2,8,7};
+        Matrix matrix1 = Matrix.createMatrix(3,3,a);
+
+    	assertEquals(-306,matrix1.determinant());
+    }
 }

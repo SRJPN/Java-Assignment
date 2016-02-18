@@ -90,6 +90,40 @@ public class Matrix {
 		if(matrix.length == 2){
 			return matrix[0][0]*matrix[1][1] - matrix[0][1]*matrix[1][0];
 		}
-		return 0;
+		int value = 0;
+		int sign = 1;
+		for (int i=0;i<matrix[0].length;i++,sign*=-1){
+			int[][] subMatrix = remove(matrix, 0, i);
+			value += matrix[0][i] * findDeterminant(subMatrix) * sign;
+		}
+		return value;
 	}
+
+	private int[][] remove(int[][] matrix, int row, int column){
+		int[][] resultantMatrix =  new int[matrix.length-1][matrix[0].length-1];
+
+		for (int i=0,rowIndex=0; i<matrix.length; i++) {
+			if(i!=row){
+				for (int j=0,columnIndex=0; j<matrix[0].length; j++) {
+					if(j!=column){
+						resultantMatrix[rowIndex][columnIndex] = matrix[i][j];
+						columnIndex++;
+					}
+				}
+				rowIndex++;
+			}
+		}
+		return resultantMatrix;
+	}
+
+	public void print(int[][] matrix){
+		System.out.println("=============================="+matrix.length);
+
+		for (int i=0;i<matrix.length;i++ ) {
+			for (int j=0;j<matrix[0].length;j++) {
+				System.out.println(matrix[i][j]);
+			}
+		}
+	}
+
 }
