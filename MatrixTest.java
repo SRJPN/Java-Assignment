@@ -69,4 +69,20 @@ public class MatrixTest {
 
     	assertTrue(resultant.equals(expected));
     }
+
+    @Test
+    public void determinant_returns_zero_if_the_matrix_have_no_determinant(){
+    	int[] a = {1,2,3,4,5,6};
+        Matrix matrix1 = Matrix.createMatrix(2,3,a);
+
+    	assertTrue(matrix1.determinant()==0);
+    }
+
+    @Test
+    public void determinant_returns_the_determinant_of_simple_2X2_matrix(){
+    	int[] a = {1,2,3,4};
+        Matrix matrix1 = Matrix.createMatrix(2,2,a);
+
+    	assertEquals(-2,matrix1.determinant());
+    }
 }

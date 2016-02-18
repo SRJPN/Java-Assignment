@@ -74,4 +74,22 @@ public class Matrix {
 		}
 		return result;
 	}
+
+	private boolean isSqaureMatrix(){
+		return this.columnSize == this.rowSize;
+	}
+
+	public int determinant(){
+		if(!this.isSqaureMatrix())
+			return 0;
+		return this.findDeterminant(this.matrix);
+
+	}
+
+	private int findDeterminant(int[][] matrix){
+		if(matrix.length == 2){
+			return matrix[0][0]*matrix[1][1] - matrix[0][1]*matrix[1][0];
+		}
+		return 0;
+	}
 }
