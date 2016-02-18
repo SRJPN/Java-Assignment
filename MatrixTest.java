@@ -14,4 +14,19 @@ public class MatrixTest {
 			}
 		}
 	}
+
+    @Test
+    public void addTwoMatrices() {
+    	int[] a = {1,2,3,4,5,6};
+    	int[] b = {6,5,4,3,2,1};
+        Matrix matrix1 = Matrix.createMatrix(2,3,a);
+        Matrix matrix2 = Matrix.createMatrix(2,3,b);
+
+        int[] expectedArray = {7,7,7,7,7,7,7};
+        Matrix expected = Matrix.createMatrix(2,3,expectedArray);
+
+        Matrix result = matrix1.add(matrix2);
+
+        assertTrue(expected.equals(result));
+    }
 }
