@@ -1,12 +1,13 @@
-public class Matrix {
+import java.util.Arrays;
 
+public class Matrix {
 	int rowSize;
 	int columnSize;
 	int[][] matrix;
 
 	public static Matrix createMatrix(int rowSize, int columnSize, int[] values){
 		Matrix matrix = new Matrix(rowSize, columnSize);
-		matrix.addValues(values);
+		matrix.initialise(values);
 		return matrix;
 	}
 
@@ -16,10 +17,10 @@ public class Matrix {
 		this.matrix = new int[rowSize][columnSize];
 	}
 
-	private void addValues(int[] values){
-		for(int i = 0, count=0; i<rowSize; i++){
-			for (int j=0; j<columnSize ; j++,count++){
-				matrix[i][j] = values[count];
+	private void initialise(int[] values){
+		for(int rowIndex = 0, count=0; rowIndex<rowSize; rowIndex++){
+			for (int columnIndex=0; columnIndex<columnSize ; columnIndex++,count++){
+				this.matrix[rowIndex][columnIndex] = values[count];
 			}
 		}
 	}
@@ -29,24 +30,48 @@ public class Matrix {
 	}
 
 	public Matrix add(Matrix other){
-		Matrix resultantMatrix =  new Matrix(this.rowSize, this.columnSize);
 		int[] result = new int[this.rowSize*this.columnSize];
-		for(int i = 0, count=0; i<this.rowSize; i++){
+		for(int rowIndex = 0, count=0; rowIndex<this.rowSize; rowIndex++){
 			for (int j=0; j<this.columnSize ; j++,count++){
-				result[count] = this.getValueAt(i,j)+other.getValueAt(i,j);
+				result[count] = this.getValueAt(rowIndex,j)+other.getValueAt(rowIndex,j);
 			}
 		}
-		resultantMatrix.addValues(result);
-		return resultantMatrix;
+		return createMatrix(this.rowSize, this.columnSize, result);
 	}
 
 	public boolean equals(Matrix other){
-		for(int i = 0, count=0; i<this.rowSize; i++){
+		for(int rowIndex = 0, count=0; rowIndex<this.rowSize; rowIndex++){
 			for (int j=0; j<this.columnSize ; j++,count++){
-				if(this.getValueAt(i,j)!=other.getValueAt(i,j))
+				if(this.getValueAt(rowIndex,j)!=other.getValueAt(rowIndex,j))
 					return false;
 			}
 		}
 		return true;
+	}
+
+	public Matrix multiply(Matrix other){
+		if(this.columnSize != other.rowSize)
+			return null;
+		int[] resultList = new int[this.rowSize*other.columnSize];
+		for (int rowIndex=0, count= 0 ; rowIndex<this.rowSize ; rowIndex++ ) {
+			for (int j=0 ; j<other.columnSize ;j++,count++ ) {
+				for (int columnIndex=0; columnIndex<this.columnSize ; columnIndex++ ) {
+					resultList[count] += this.matrix[rowIndex][columnIndex] * other.matrix[columnIndex][j];
+				}
+			}	
+		}
+		return createMatrix(this.rowSize, other.columnSize, resultList);
+	}
+
+	private int[] multiplyWithRow(int[] row, int[][] matrix){
+		int[] result = new int[matrix.length];
+		for(int rowIndex = 0; rowIndex<matrix[0].length; rowIndex++){
+			int value = 0;
+			for(int columnIndex=0; columnIndex<row.length; columnIndex++){
+				value += row[columnIndex]*matrix[columnIndex][rowIndex];
+			}
+			result[rowIndex] = value;
+		}
+		return result;
 	}
 }
