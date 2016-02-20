@@ -82,37 +82,28 @@ public class Matrix {
 	public int determinant(){
 		if(!this.isSqaureMatrix())
 			return 0;
-		return this.findDeterminant(this.matrix);
-
-	}
-
-	private int findDeterminant(int[][] matrix){
 		if(matrix.length == 1){
 			return matrix[0][0];
 		}
 		int value = 0;
 		int sign = 1;
 		for (int i=0;i<matrix[0].length;i++,sign*=-1){
-			int[][] subMatrix = remove(matrix, 0, i);
-			value += matrix[0][i] * findDeterminant(subMatrix) * sign;
+			Matrix subMatrix = createMatrix(this.rowSize-1, this.columnSize-1, remove(matrix, 0, i));
+			value += matrix[0][i] * subMatrix.determinant() * sign;
 		}
 		return value;
 	}
 
-	private int[][] remove(int[][] matrix, int row, int column){
-		int[][] resultantMatrix =  new int[matrix.length-1][matrix[0].length-1];
+	private int[] remove(int[][] matrix, int row, int column){
+		int[] resultantMatrix =  new int[(matrix.length-1) * (matrix[0].length-1)];
 
-		for (int i=0,rowIndex=0; i<matrix.length; i++) {
-			if(i!=row){
-				for (int j=0,columnIndex=0; j<matrix[0].length; j++) {
-					if(j!=column){
-						resultantMatrix[rowIndex][columnIndex] = matrix[i][j];
-						columnIndex++;
+		for (int rowIndex=0,count=0 ;rowIndex<matrix.length; rowIndex++ ) 
+			if(rowIndex!=row)
+				for (int columnIndex=0; columnIndex<matrix[0].length; columnIndex++)
+					if(columnIndex!=column){
+						resultantMatrix[count] = matrix[rowIndex][columnIndex];	
+						count++;
 					}
-				}
-				rowIndex++;
-			}
-		}
 		return resultantMatrix;
 	}
 
