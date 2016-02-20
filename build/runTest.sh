@@ -1,1 +1,1 @@
-java -cp lib:class:src:test org.junit.runner.JUnitCore MatrixTest;
+java -cp lib/*:class:src:test org.junit.runner.JUnitCore MatrixTest;
