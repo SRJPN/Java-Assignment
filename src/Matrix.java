@@ -39,6 +39,15 @@ public class Matrix {
 		return createMatrix(this.rowSize, this.columnSize, result);
 	}
 
+	@Override
+	public boolean equals(Object other){
+		if (this == other)
+			return true;
+		if(!(other instanceof Matrix))
+			return false;
+		return this.equals((Matrix) other);		
+	}
+
 	public boolean equals(Matrix other){
 		for(int rowIndex = 0, count=0; rowIndex<this.rowSize; rowIndex++){
 			for (int j=0; j<this.columnSize ; j++,count++){

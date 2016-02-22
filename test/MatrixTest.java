@@ -27,7 +27,7 @@ public class MatrixTest {
 
         Matrix result = matrix1.add(matrix2);
 
-        assertTrue(expected.equals(result));
+        assertEquals(expected,result);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class MatrixTest {
 
     	Matrix resultant = matrix1.multiply(matrix2);
 
-    	assertTrue(resultant.equals(expected));
+    	assertEquals(expected,resultant);
     }
 
     @Test
@@ -67,7 +67,7 @@ public class MatrixTest {
 
     	Matrix resultant = matrix1.multiply(matrix2);
 
-    	assertTrue(resultant.equals(expected));
+    	assertEquals(expected,resultant);
     }
 
     @Test
@@ -75,7 +75,7 @@ public class MatrixTest {
     	int[] a = {1,2,3,4,5,6};
         Matrix matrix1 = Matrix.createMatrix(2,3,a);
 
-    	assertTrue(matrix1.determinant()==0);
+    	assertEquals(matrix1.determinant(),0);
     }
 
     @Test
